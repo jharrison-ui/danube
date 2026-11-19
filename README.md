@@ -21,7 +21,7 @@ Danube gives you pub/sub, durable streams, task queues and an AI-ready control p
 
 ## Try it in 60 seconds
 
-Grab the `danube` binary from [releases](https://github.com/danube-messaging/danube/releases) (or `cargo build --release -p danube-broker`), then:
+Grab the `danube` binary from [releases](https://github.com/danube-messaging/danube/releases) (Linux x86_64, macOS Apple Silicon, Windows x86_64). On other platforms, build from source: `cargo build --release -p danube-broker`. Then:
 
 ```bash
 # 1. Start a node
@@ -40,7 +40,8 @@ That's it. Run `danube` on its own any time to see everything it can do.
 Prefer containers?
 
 ```bash
-docker run -p 6650:6650 ghcr.io/danube-messaging/danube:latest \
+docker run -p 6650:6650 -v danube-data:/danube-data \
+  ghcr.io/danube-messaging/danube:latest \
   up standalone --data-dir /danube-data --listen 0.0.0.0:6650
 ```
 
@@ -92,7 +93,7 @@ To see the verified end-to-end agent test suite, check [agent_bench](agent_bench
 # Laptop, CI, single box
 danube up standalone
 
-# Production cluster (run on each node)
+# Production cluster: run on each node, setting --advertised-addr to that node's own address
 danube up cluster --data-dir /var/lib/danube \
   --advertised-addr node1:6650 --seed-nodes node1:7650,node2:7650,node3:7650
 
